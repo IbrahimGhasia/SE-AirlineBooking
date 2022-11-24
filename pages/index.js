@@ -1,13 +1,10 @@
-import FlightCard from '../components/FlightCard';
-import Layout from '../components/Layout';
-import SearchFlights from '../components/SearchFlights';
+import { AuthenticationImage } from '../components/AuthenticationImage';
 
 export default function Home() {
 	return (
 		<div>
-			<Layout>
-				<SearchFlights />
-			</Layout>
+			{/* <Login /> */}
+			<AuthenticationImage />
 		</div>
 	);
 }

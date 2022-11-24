@@ -29,7 +29,9 @@ import {
 	IconSun,
 	IconMoonStars,
 	IconPlane,
+	IconUser,
 } from '@tabler/icons';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme, _params, getRef) => {
 	const icon = getRef('icon');
@@ -114,7 +116,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 	};
 });
 
-const data = [{ link: '/', label: 'Book Flight', icon: IconPlane }];
+const data = [
+	{ link: '/', label: 'Register', icon: IconUser },
+	{ link: '/home', label: 'Book Flight', icon: IconPlane },
+];
 
 export default function Layout(props) {
 	const theme = useMantineTheme();
@@ -124,20 +129,21 @@ export default function Layout(props) {
 	const [active, setActive] = useState('Billing');
 
 	const links = data.map((item) => (
-		<a
-			className={cx(classes.link, {
-				[classes.linkActive]: item.label === active,
-			})}
-			href={item.link}
-			key={item.label}
-			onClick={(event) => {
-				event.preventDefault();
-				setActive(item.label);
-			}}
-		>
-			<item.icon className={classes.linkIcon} stroke={1.5} />
-			<span>{item.label}</span>
-		</a>
+		<Link href={item.link} legacyBehavior>
+			<a
+				className={cx(classes.link, {
+					[classes.linkActive]: item.label === active,
+				})}
+				key={item.label}
+				onClick={(event) => {
+					// event.preventDefault();
+					// setActive(item.label);
+				}}
+			>
+				<item.icon className={classes.linkIcon} stroke={1.5} />
+				<span>{item.label}</span>
+			</a>
+		</Link>
 	));
 
 	return (

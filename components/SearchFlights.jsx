@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import { IconCheck, IconCheckbox, IconSearch, IconX } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import FlightCard from './FlightCard';
+import ShowBookings from './ShowBookings';
 
 const SearchFlights = (props) => {
 	const [opened, setOpened] = useState(false);
@@ -82,7 +83,7 @@ const SearchFlights = (props) => {
 
 				const url =
 					// 'https://api.flightapi.io/roundtrip/637d0cba8cfdc6bf3586cd01/LHR/LAX/2022-11-25/2022-11-30/2/0/1/Economy/USD';
-					`https://api.flightapi.io/onewaytrip/637d0cba8cfdc6bf3586cd01/${source}/${destination}/${depature}/2/0/1/${passClass}/INR`;
+					`https://api.flightapi.io/onewaytrip/637f5a988194e7bf8590e4e2/${source}/${destination}/2022-11-30/2/0/1/${passClass}/INR`;
 				const options = {
 					method: 'GET',
 				};
@@ -90,16 +91,30 @@ const SearchFlights = (props) => {
 				fetch(url, options)
 					.then((res) => res.json())
 					.then((json) => {
-						showNotification({
-							className: 'flights-found',
-							title: 'Flights Found',
-							message: 'You can choose from the above flights',
-							autoClose: 5000,
-							icon: <IconCheck />,
-							color: 'green',
-						});
 						console.log(json);
-						setAirlines(json.airlines);
+						if (json.airlines.length === 0) {
+							showNotification({
+								className: 'flights-not-found',
+								title: 'Flights not found',
+								message:
+									'Sorry! There are no currently flights for this route',
+								autoClose: 5000,
+								icon: <IconX />,
+								color: 'red',
+							});
+						} else {
+							showNotification({
+								className: 'flights-found',
+								title: 'Flights Found',
+								message:
+									'You can choose from the above flights',
+								autoClose: 5000,
+								icon: <IconCheck />,
+								color: 'green',
+							});
+							console.log(json);
+							setAirlines(json.airlines);
+						}
 					})
 					.catch((err) => {
 						showNotification({
@@ -128,23 +143,6 @@ const SearchFlights = (props) => {
 				<form>
 					<Grid>
 						<Grid.Col sm={6} lg={3}>
-							{/* <Autocomplete
-								label='From - '
-								placeholder='Pick the source'
-								data={[
-									{ value: 'STV' },
-									{ value: 'BOM' },
-									{ value: 'DEL' },
-									{ value: 'BLR' },
-									{ value: 'BQD' },
-									{ value: 'MAA' },
-									{ value: 'PNQ' },
-									{ value: 'GOI' },
-								]}
-								onChange={(event) => {
-									setSource(event);
-								}}
-							/> */}
 							<Select
 								label='From - '
 								placeholder='Source'
@@ -194,11 +192,7 @@ const SearchFlights = (props) => {
 									// .add(5, 'days')
 									.toDate()}
 								onChange={(event) => {
-									setDepature(
-										(event.value = new Date()
-											.toJSON()
-											.slice(0, 10))
-									);
+									setDepature(event);
 								}}
 							/>
 						</Grid.Col>
@@ -308,6 +302,9 @@ const SearchFlights = (props) => {
 								depatureTime={depatureTime}
 								to={destination}
 								arrivalTime={arrivalTime}
+								depatureDate={depature}
+								passenger={passenger}
+								passClass={passClass}
 								price={
 									3000 + Math.floor(Math.random() * 2000) + 1
 								}

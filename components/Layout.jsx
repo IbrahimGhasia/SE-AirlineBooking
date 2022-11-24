@@ -117,7 +117,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 const data = [
-	{ link: '/', label: 'Register', icon: IconUser },
+	{ link: '/register', label: 'Register', icon: IconUser },
 	{ link: '/home', label: 'Book Flight', icon: IconPlane },
 ];
 
@@ -194,29 +194,15 @@ export default function Layout(props) {
 					</Navbar.Section>
 
 					<Navbar.Section className={classes.footer}>
-						<a
-							href='#'
-							className={classes.link}
-							onClick={(event) => event.preventDefault()}
-						>
-							<IconSwitchHorizontal
-								className={classes.linkIcon}
-								stroke={1.5}
-							/>
-							<span>Change account</span>
-						</a>
-
-						<a
-							href='#'
-							className={classes.link}
-							onClick={(event) => event.preventDefault()}
-						>
-							<IconLogout
-								className={classes.linkIcon}
-								stroke={1.5}
-							/>
-							<span>Logout</span>
-						</a>
+						<Link href='/' legacyBehavior>
+							<a className={classes.link}>
+								<IconLogout
+									className={classes.linkIcon}
+									stroke={1.5}
+								/>
+								<span>Logout</span>
+							</a>
+						</Link>
 					</Navbar.Section>
 				</Navbar>
 			}

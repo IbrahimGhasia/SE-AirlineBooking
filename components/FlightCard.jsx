@@ -166,21 +166,16 @@ const FlightCard = (props) => {
 						<Text fw={500}>{props.arrivalTime}</Text>
 					</Flex>
 				</Group>
-
 				<Divider mt={20} variant='dashed' labelPosition='center' />
-
 				<Text fz='lg' mt={10}>
 					Depature Date: {props.depatureDate}
 				</Text>
 				<Text fz='lg'>Passengers: {props.passenger}</Text>
 				<Text fz='lg'>Travel Class: {props.passClass}</Text>
-
 				<Divider mt={20} variant='dashed' labelPosition='center' />
-
 				<Text fz='xl' fw={700} color='green'>
 					Total Price: {props.price}
 				</Text>
-
 				<Button
 					onClick={handleSubmit}
 					variant='outline'

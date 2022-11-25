@@ -19,6 +19,7 @@ import { IconCheck, IconCheckbox, IconSearch, IconX } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import FlightCard from './FlightCard';
 import ShowBookings from './ShowBookings';
+import AdvertsCarousel from './AdvertsCarousel';
 
 const SearchFlights = (props) => {
 	const [opened, setOpened] = useState(false);
@@ -192,7 +193,11 @@ const SearchFlights = (props) => {
 									// .add(5, 'days')
 									.toDate()}
 								onChange={(event) => {
-									setDepature(event);
+									setDepature(
+										(event.value = new Date()
+											.toJSON()
+											.slice(0, 10))
+									);
 								}}
 							/>
 						</Grid.Col>
@@ -288,6 +293,8 @@ const SearchFlights = (props) => {
 						}
 					/>
 
+					<AdvertsCarousel />
+
 					{airlines.map((item) => {
 						let depHours = Math.floor(Math.random() * 20) + 1;
 						let depMin = Math.floor(Math.random() * 50) + 1;
@@ -311,6 +318,17 @@ const SearchFlights = (props) => {
 							/>
 						);
 					})}
+					{/* <FlightCard
+						airline='Indigo'
+						from={source}
+						depatureTime='12:50'
+						to={destination}
+						arrivalTime='14:20'
+						depatureDate={depature}
+						passenger={passenger}
+						passClass={passClass}
+						price={3000 + Math.floor(Math.random() * 2000) + 1}
+					/> */}
 				</form>
 			</Box>
 		</div>

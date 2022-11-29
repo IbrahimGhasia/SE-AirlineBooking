@@ -128,8 +128,8 @@ export default function Layout(props) {
 	const { classes, cx } = useStyles();
 	const [active, setActive] = useState('Billing');
 
-	const links = data.map((item) => (
-		<Link href={item.link} legacyBehavior>
+	const links = data.map((item, index) => (
+		<Link href={item.link} key={index} legacyBehavior>
 			<a
 				className={cx(classes.link, {
 					[classes.linkActive]: item.label === active,

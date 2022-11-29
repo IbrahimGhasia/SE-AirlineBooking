@@ -295,7 +295,7 @@ const SearchFlights = (props) => {
 
 					<AdvertsCarousel />
 
-					{airlines.map((item) => {
+					{airlines.map((item, index) => {
 						let depHours = Math.floor(Math.random() * 20) + 1;
 						let depMin = Math.floor(Math.random() * 50) + 1;
 
@@ -304,6 +304,7 @@ const SearchFlights = (props) => {
 
 						return (
 							<FlightCard
+								key={index}
 								airline={item.name}
 								from={source}
 								depatureTime={depatureTime}
